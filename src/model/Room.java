@@ -5,29 +5,44 @@ public class Room implements RoomInterface {
     private Double price;
     private RoomTypeEnum roomType;
 
-        public Room(String roomNumber, Double price, RoomTypeEnum roomType) {
-            this.roomNumber = roomNumber;
-            this.price = price;
-            this.roomType = roomType;
-        }
+    public Room(String roomNumber, Double price, RoomTypeEnum roomType) {
+        this.roomNumber = roomNumber;
+        this.price = price;
+        this.roomType = roomType;
+    }
 
-    @Override
     public String getRoomNumber() {
-        return null;
+        return roomNumber;
     }
 
-    @Override
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
     public Double getRoomPrice() {
-        return null;
+        return price;
     }
 
-    @Override
+    public void setRoomPrice(Double price){
+        this.price = price;
+    }
+
     public RoomTypeEnum getRoomType() {
-        return null;
+        return roomType;
     }
 
-    @Override
+    public void setRoomType(RoomTypeEnum roomType){
+        this.roomType = roomType;
+    }
+
     public boolean isFree() {
         return false;
+    }
+    @Override
+    public String toString(){
+            return "Room{" +
+                    "roomNumber='" + roomNumber + '\'' +
+                    ", price=" + price +
+                    ", roomType=" + roomType +
+                    '}';
     }
 }
