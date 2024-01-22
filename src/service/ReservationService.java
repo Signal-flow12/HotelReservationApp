@@ -3,7 +3,6 @@ package service;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import model.Room;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,9 +54,9 @@ public class ReservationService {
 
 
     public void printAllReservations(){
-        return
+        for (Reservation reservation : reservations) {
+            System.out.println(reservation);
+        }
     }
-
-
 
 }
