@@ -1,6 +1,6 @@
 package model;
 
-public class Room implements RoomInterface {
+public class Room implements IRoom {
     private String roomNumber;
     private Double price;
     private RoomTypeEnum roomType;
@@ -11,38 +11,32 @@ public class Room implements RoomInterface {
         this.roomType = roomType;
     }
 
+    @Override
     public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
+    @Override
     public Double getRoomPrice() {
         return price;
     }
 
-    public void setRoomPrice(Double price){
-        this.price = price;
-    }
-
+    @Override
     public RoomTypeEnum getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(RoomTypeEnum roomType){
-        this.roomType = roomType;
+    @Override
+    public boolean isFree() {
+        return true;
     }
 
-    public boolean isFree() {
-        return false;
-    }
     @Override
     public String toString(){
-            return "Room{" +
-                    "roomNumber='" + roomNumber + '\'' +
-                    ", price=" + price +
-                    ", roomType=" + roomType +
-                    '}';
+        return "Room{" +
+                "roomNumber='" + roomNumber + '\'' +
+                ", price=" + price +
+                ", roomType=" + roomType +
+                '}';
     }
 }

@@ -10,7 +10,7 @@ public class CustomerService {
     public static List<Customer> customers = new ArrayList<Customer>();
 
     //method that is adding customers
-    public void addCustomer(String email, String firstName,String lastName, String customerEmail){
+    public void addCustomer(String email, String firstName,String lastName){
         Customer customer = new Customer(email, firstName, lastName);
         customers.add(customer);
     }
