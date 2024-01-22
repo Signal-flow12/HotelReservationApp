@@ -4,9 +4,9 @@ import java.util.regex.Pattern;
 
 public class Customer {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    public String firstName;
+    public String lastName;
+    public String email;
 
     private final String emailRegex = "^(.+)@(.+).com$";
     private final Pattern pattern = Pattern.compile(emailRegex);
