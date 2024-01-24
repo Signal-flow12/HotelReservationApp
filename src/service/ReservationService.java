@@ -11,8 +11,19 @@ import java.util.List;
 
 public class ReservationService {
 
-    public static List<Reservation> reservations = new ArrayList<Reservation>();
-    public static List<IRoom> rooms = new ArrayList<>();
+    private static ReservationService reservationService;
+    public List<Reservation> reservations = new ArrayList<Reservation>();
+    public List<IRoom> rooms = new ArrayList<>();
+
+    private ReservationService() {
+    }
+    //static reference
+    public static ReservationService getInstance(){
+        if (reservationService == null){
+            reservationService = new ReservationService();
+        }
+        return reservationService;
+    }
 
     //add room
     public void addRoom(IRoom room){

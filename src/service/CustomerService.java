@@ -16,7 +16,7 @@ public class CustomerService {
     }
 
     //method getting the customer via email
-    public Customer getCustomer(String customerEmail){
+    public static Customer getCustomer(String customerEmail){
         for (Customer customer : customers){
             if (customer.email.equals(customerEmail)){
                 return customer;
