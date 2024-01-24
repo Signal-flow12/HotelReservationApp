@@ -29,6 +29,7 @@ public class ReservationService {
     public void addRoom(IRoom room){
         rooms.add(room);
     }
+
     //get a room and return it to customer
     public IRoom getARoom(String roomId){
         for(IRoom room : rooms){

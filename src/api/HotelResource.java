@@ -11,8 +11,22 @@ import java.util.Date;
 
 public class HotelResource {
 
+    private static HotelResource hotelResource;
+
     private static CustomerService customerService = new CustomerService();
     private static ReservationService reservationService = ReservationService.getInstance();
+
+    // Private constructor to prevent external instantiation
+    private HotelResource() {
+    }
+
+    // Static method to get the single instance of HotelResource
+    public static HotelResource getInstance() {
+        if (hotelResource == null) {
+            hotelResource = new HotelResource();
+        }
+        return hotelResource;
+    }
     public static Customer getCustomer(String email) {
         return customerService.getCustomer(email);
     }
@@ -38,6 +52,10 @@ public class HotelResource {
 
     public Collection<IRoom> findARoom(Date checkIn, Date checkOut){
         return reservationService.findRooms(checkIn, checkOut);
+    }
+
+    public void displayAllReservations(){
+        reservationService.printAllReservations();
     }
 
 }
