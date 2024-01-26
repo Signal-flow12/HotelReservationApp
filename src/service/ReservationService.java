@@ -57,12 +57,17 @@ public class ReservationService {
     }
 
     public Collection<Reservation> getCustomerReservation(Customer customer){
+        List<Reservation> customerReservations = new ArrayList<>();
+
         for (Reservation reservation : reservations) {
-            if(customer.getEmail().equals(reservation))
-                return (Collection<Reservation>) reservation;
+            if(customer.getEmail().equals(reservation.getCustomer().getEmail())) {
+                customerReservations.add(reservation);
+            }
         }
-        return null;
+
+        return customerReservations;
     }
+
 
 
     public void printAllReservations(){

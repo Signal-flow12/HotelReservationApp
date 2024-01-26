@@ -4,6 +4,7 @@ import api.HotelResource;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
+import service.ReservationService;
 
 
 import java.sql.SQLOutput;
@@ -36,10 +37,7 @@ public class MainMenu {
                         findAndReserveRoom(scanner);
                     }
                     if (selection == 2 ) {
-                        System.out.println("Enter email to see reservations");
-                        String customerEmail = scanner.next().trim();
-
-                        HotelResource.getInstance().getCustomerReservations(customerEmail);
+                        getCustomerReservation(scanner);
                     }
                     if (selection == 3) {
                         createAccount(scanner);
@@ -106,11 +104,25 @@ public class MainMenu {
         }catch  (Exception e) {
             System.out.println("Invalid date format, please try again");
         }
+    }
 
+    public void getCustomerReservation(Scanner scanner) {
 
-        //Store available room in collection and display them
+        HotelResource hotelResource = HotelResource.getInstance();
 
-        //choose one of the rooms
+        System.out.println("Enter customer email");
+        String customerEmail = scanner.nextLine();
+
+        Collection<Reservation> reservations = hotelResource.getCustomerReservations(customerEmail);
+
+        if (reservations.isEmpty()){
+            System.out.println("No reservation found for this customer");
+        }else {
+            System.out.println("Your reservations: ");
+            for (Reservation reservation : reservations) {
+                System.out.println(reservation);
+            }
+        }
     }
     public void createAccount(Scanner scanner) {
 
