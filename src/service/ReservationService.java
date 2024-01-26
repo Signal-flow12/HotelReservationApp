@@ -49,7 +49,7 @@ public class ReservationService {
     public Collection<IRoom>findRooms(Date checkInDate, Date checkOutDate){
         List<IRoom> availableRooms = new ArrayList<>();
         for (IRoom room : rooms) {
-            if(checkInDate.after(checkInDate) && checkOutDate.before(checkOutDate)){
+            if(!checkInDate.after(checkInDate) && !checkOutDate.before(checkOutDate)){
                 availableRooms.add(room);
             }
         }
@@ -69,6 +69,10 @@ public class ReservationService {
         for (Reservation reservation : reservations) {
             System.out.println(reservation);
         }
+    }
+
+    public Collection<IRoom> getRooms(){
+        return rooms;
     }
 
 }

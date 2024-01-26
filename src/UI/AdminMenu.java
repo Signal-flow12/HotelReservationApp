@@ -1,9 +1,7 @@
 package UI;
 import api.AdminResource;
-import model.Customer;
-import model.IRoom;
-import model.Room;
-import model.RoomTypeEnum;
+import api.HotelResource;
+import model.*;
 
 import java.util.*;
 
@@ -20,7 +18,7 @@ public class AdminMenu {
                     System.out.println("2. See all rooms");
                     System.out.println("3. See all reservations");
                     System.out.println("4. Add a room");
-                    System.out.println("5. Exit");
+                    System.out.println("5. Back to main menu");
                     System.out.println("----------------------------------------------- \n " +
                             "Please select a number for the menu option.");
                     int selection = Integer.parseInt(scanner.nextLine());
@@ -37,10 +35,19 @@ public class AdminMenu {
 
                     }
                     if (selection == 2 ) {
-                        System.out.println();
+                        if (adminResource != null ){
+                            System.out.println("All Rooms:");
+                            Collection<IRoom> rooms = adminResource.getAllRooms();
+                            for (IRoom room : rooms) {
+                                System.out.println(room);
+                            }
+                        } else {
+                            System.out.println("No Rooms");
+                        }
                     }
                     if (selection == 3) {
-                        System.out.println();
+                        System.out.println("All Reservations");
+                        adminResource.displayAllReservations();
                     }
                     if (selection == 4) {
                         System.out.println("Add a room");
@@ -87,10 +94,12 @@ public class AdminMenu {
             IRoom room = new Room(roomNumber, price, roomType);
             List<IRoom> rooms = new ArrayList<>();
             rooms.add(room);
+            adminResource.addRoom(rooms);
 
             System.out.println("Would you like to add another room? y/n");
             input.nextLine();
             addRoom = input.nextLine().toLowerCase().trim();
         }
     }
+
 }
