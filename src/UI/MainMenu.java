@@ -1,23 +1,16 @@
 package UI;
 
 import api.HotelResource;
-import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import service.ReservationService;
 
-
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.start();
-    }
+
     public void start() {
         boolean keepRunning = true;
         try (Scanner scanner = new Scanner(System.in)) {
@@ -36,7 +29,7 @@ public class MainMenu {
                     if (selection == 1) {
                         findAndReserveRoom(scanner);
                     }
-                    if (selection == 2 ) {
+                    if (selection == 2) {
                         getCustomerReservation(scanner);
                     }
                     if (selection == 3) {
@@ -75,7 +68,7 @@ public class MainMenu {
             Date checkOutDate = dateFormat.parse(checkOutDateString);
 
             //find  available rooms
-            Collection<IRoom> availableRooms = hotelResource.findARoom(chechInDate,checkOutDate);
+            Collection<IRoom> availableRooms = hotelResource.findARoom(chechInDate, checkOutDate);
 
             //Display rooms
             System.out.println("Available Rooms");
@@ -87,7 +80,7 @@ public class MainMenu {
             System.out.println("Please enter room number to reserve a room or press 0 to cancel");
             String roomNumber = scanner.nextLine();
 
-            if(!roomNumber.equals("0")) {
+            if (!roomNumber.equals("0")) {
                 System.out.println("Enter customer email");
                 String customerEmail = scanner.nextLine();
 
@@ -101,7 +94,7 @@ public class MainMenu {
             }
 
 
-        }catch  (Exception e) {
+        } catch (Exception e) {
             System.out.println("Invalid date format, please try again");
         }
     }
@@ -115,15 +108,16 @@ public class MainMenu {
 
         Collection<Reservation> reservations = hotelResource.getCustomerReservations(customerEmail);
 
-        if (reservations.isEmpty()){
+        if (reservations.isEmpty()) {
             System.out.println("No reservation found for this customer");
-        }else {
+        } else {
             System.out.println("Your reservations: ");
             for (Reservation reservation : reservations) {
                 System.out.println(reservation);
             }
         }
     }
+
     public void createAccount(Scanner scanner) {
 
         System.out.println("Enter first name");

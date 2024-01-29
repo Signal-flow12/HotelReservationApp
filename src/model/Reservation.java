@@ -9,7 +9,7 @@ public class Reservation {
     private Date checkInDate;
     private Date checkOutDate;
 
-    public Reservation(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
+    public Reservation(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
         this.customer = customer;
         this.room = room;
         this.checkInDate = checkInDate;
@@ -21,7 +21,7 @@ public class Reservation {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Customer: " + customer + " \nRoom: " + room + " \ncheckin: " + checkInDate + " \nCheckout: " + checkOutDate;
     }
 

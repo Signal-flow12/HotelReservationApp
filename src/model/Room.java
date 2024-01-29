@@ -32,7 +32,7 @@ public class Room implements IRoom {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Room{" +
                 "roomNumber='" + roomNumber + '\'' +
                 ", price=" + price +

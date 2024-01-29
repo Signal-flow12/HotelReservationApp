@@ -1,19 +1,26 @@
 package UI;
-import api.AdminResource;
-import api.HotelResource;
-import model.*;
 
-import java.util.*;
+import api.AdminResource;
+import model.Customer;
+import model.IRoom;
+import model.Room;
+import model.RoomTypeEnum;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Scanner;
 
 public class AdminMenu {
 
     AdminResource adminResource = AdminResource.getInstance();
+
     public boolean start() {
         boolean keepRunning = true;
         try (Scanner scanner = new Scanner(System.in)) {
             while (keepRunning) {
                 try {
-                    System.out.println( "ADMIN MENU");
+                    System.out.println("ADMIN MENU");
                     System.out.println("1. See all customers");
                     System.out.println("2. See all rooms");
                     System.out.println("3. See all reservations");
@@ -34,8 +41,8 @@ public class AdminMenu {
                         }
 
                     }
-                    if (selection == 2 ) {
-                        if (adminResource != null ){
+                    if (selection == 2) {
+                        if (adminResource != null) {
                             System.out.println("All Rooms:");
                             Collection<IRoom> rooms = adminResource.getAllRooms();
                             for (IRoom room : rooms) {
@@ -66,7 +73,8 @@ public class AdminMenu {
         }
         return false;
     }
-    private static void addRoom (Scanner input) {
+
+    private static void addRoom(Scanner input) {
         AdminResource adminResource = AdminResource.getInstance();
         String addRoom = "y";
 
