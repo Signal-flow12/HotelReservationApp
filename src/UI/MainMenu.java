@@ -5,7 +5,6 @@ import api.HotelResource;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import service.CustomerService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,7 +110,7 @@ public class MainMenu {
             System.out.println("Please enter room number to reserve a room or press 0 to cancel");
             roomNumber = scanner.nextLine();
 
-            if (roomNumber.equalsIgnoreCase("q")){
+            if (roomNumber.equalsIgnoreCase("q")) {
                 return;
             }
 
@@ -135,7 +134,7 @@ public class MainMenu {
                     System.out.println("Enter customer email");
                     customerEmail = scanner.nextLine();
 
-                    if (customerEmail.equalsIgnoreCase("q")){
+                    if (customerEmail.equalsIgnoreCase("q")) {
                         return;
                     }
 
@@ -170,18 +169,42 @@ public class MainMenu {
     public void getCustomerReservation(Scanner scanner) {
 
         HotelResource hotelResource = HotelResource.getInstance();
+        AdminResource adminResource = AdminResource.getInstance();
 
-        System.out.println("Enter customer email");
-        String customerEmail = scanner.nextLine();
+        String customerEmail = null;
 
-        Collection<Reservation> reservations = hotelResource.getCustomerReservations(customerEmail);
+        while (customerEmail == null) {
+            System.out.println("Enter customer email");
+            customerEmail = scanner.nextLine();
 
-        if (reservations.isEmpty()) {
-            System.out.println("No reservation found for this customer");
-        } else {
-            System.out.println("Your reservations: ");
-            for (Reservation reservation : reservations) {
-                System.out.println(reservation);
+            if (customerEmail.equalsIgnoreCase("q")) {
+                return;
+            }
+            Collection<Customer> customerEmails = adminResource.getAllCustomers();
+            boolean validCustomerEmail = false;
+
+            for (Customer customer : customerEmails) {
+                if (customer.getEmail().equalsIgnoreCase(customerEmail)) {
+                    validCustomerEmail = true;
+                    break;
+                }
+            }
+
+            if (!validCustomerEmail) {
+                System.out.println("Cannot find customer email, please try again");
+                customerEmail = null;
+            } else {
+
+                Collection<Reservation> reservations = hotelResource.getCustomerReservations(customerEmail);
+
+                if (reservations.isEmpty()) {
+                    System.out.println("No reservation found for this customer");
+                } else {
+                    System.out.println("Your reservations: ");
+                    for (Reservation reservation : reservations) {
+                        System.out.println(reservation);
+                    }
+                }
             }
         }
     }
