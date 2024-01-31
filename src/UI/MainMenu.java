@@ -8,6 +8,7 @@ import model.Reservation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Scanner;
@@ -19,7 +20,8 @@ public class MainMenu {
         try (Scanner scanner = new Scanner(System.in)) {
             while (keepRunning) {
                 try {
-                    System.out.println("MAIN MENU");
+                    System.out.println("MAIN MENU \nPress Q at anytime to return to main menu" );
+                    System.out.println("-----------------------------------------------");
                     System.out.println("1. Find and Reserve a room");
                     System.out.println("2. See my reservations");
                     System.out.println("3. Create an account");
@@ -96,10 +98,39 @@ public class MainMenu {
 
         Collection<IRoom> availableRooms = hotelResource.findARoom(checkInDate, checkOutDate);
 
-        // Display rooms
-        System.out.println("Available Rooms");
-        for (IRoom room : availableRooms) {
-            System.out.println(room);
+        if (availableRooms.isEmpty()) {
+            // No available rooms for the specified date range, try alternative dates
+            System.out.println("No available rooms for the specified dates. Searching for alternative dates...");
+
+            // Try searching for alternative dates by adding seven days to the original dates
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(checkInDate);
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            Date alternativeCheckInDate = calendar.getTime();
+
+            calendar.setTime(checkOutDate);
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            Date alternativeCheckOutDate = calendar.getTime();
+
+            Collection<IRoom> alternativeRooms = hotelResource.findARoom(alternativeCheckInDate, alternativeCheckOutDate);
+
+            if (!alternativeRooms.isEmpty()) {
+                // Display recommended rooms on alternative dates
+                System.out.println("Recommended rooms on alternative dates:");
+
+                for (IRoom room : alternativeRooms) {
+                    System.out.println(room);
+                }
+            } else {
+                System.out.println("No available rooms for the alternative dates as well. Please try different dates.");
+                return; // Exit the method as no rooms are available for the alternative dates
+            }
+        } else {
+            // Display available rooms for the original dates
+            System.out.println("Available Rooms:");
+            for (IRoom room : availableRooms) {
+                System.out.println(room);
+            }
         }
 
         String roomNumber = null;
@@ -107,7 +138,7 @@ public class MainMenu {
         while (roomNumber == null) {
             // Ask the user to choose a room
 
-            System.out.println("Please enter room number to reserve a room or press 0 to cancel");
+            System.out.println("Please enter room number to reserve a room or press q to cancel");
             roomNumber = scanner.nextLine();
 
             if (roomNumber.equalsIgnoreCase("q")) {
@@ -166,6 +197,7 @@ public class MainMenu {
     }
 
 
+
     public void getCustomerReservation(Scanner scanner) {
 
         HotelResource hotelResource = HotelResource.getInstance();
@@ -214,11 +246,34 @@ public class MainMenu {
         System.out.println("Enter first name");
         String firstName = scanner.nextLine();
 
+        if(firstName.equalsIgnoreCase("q")){
+            return;
+        }
+
         System.out.println("Enter last name");
         String lastName = scanner.nextLine().trim();
 
-        System.out.println("Enter Customer Email");
-        String email = scanner.nextLine().trim();
+        if(lastName.equalsIgnoreCase("q")){
+            return;
+        }
+
+        String email;
+        while (true) {
+            System.out.println("Enter Customer Email");
+            email = scanner.nextLine().trim();
+
+            if(email.equalsIgnoreCase("q")){
+                return;
+            }
+
+            String errorMessage = Customer.validateEmail(email);
+            if (errorMessage == null) {
+                break; // Email is valid, exit the loop
+            } else {
+                System.out.println(errorMessage);
+            }
+        }
+
 
         HotelResource.getInstance().createACustomer(firstName, lastName, email);
         System.out.println("Customer created successfully");

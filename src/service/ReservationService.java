@@ -47,7 +47,20 @@ public class ReservationService {
     final public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
         List<IRoom> availableRooms = new ArrayList<>();
         for (IRoom room : rooms) {
-            if (!checkInDate.after(checkInDate) && !checkOutDate.before(checkOutDate)) {
+            boolean isRoomAvailable = true;
+
+            // Check if the room is booked in the specified time frame
+            for (Reservation reservation : reservations) {
+                if (room.getRoomNumber().equals(reservation.getRoom().getRoomNumber())) {
+                    if (!(checkOutDate.before(reservation.getCheckInDate()) || checkInDate.after(reservation.getCheckOutDate()))) {
+                        // Room is already booked for the specified time frame
+                        isRoomAvailable = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isRoomAvailable) {
                 availableRooms.add(room);
             }
         }

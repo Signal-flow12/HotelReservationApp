@@ -64,9 +64,8 @@ public class AdminMenu {
                         MainMenu mainMenu = new MainMenu();
                         mainMenu.start();
                     }
-                } catch (Exception ex) {
-                    System.out.println("\nError - Invalid Input\n");
-                    ex.printStackTrace();
+                }catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
                 }
             }
 
