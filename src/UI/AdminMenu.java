@@ -81,10 +81,25 @@ public class AdminMenu {
             RoomTypeEnum roomType = null;
 
             System.out.println("Enter room number: ");
-            String roomNumber = input.nextLine();
+            String roomNumber = input.nextLine().trim();
+
+            if (roomNumber.isEmpty()) {
+                System.out.println("Room number cannot be empty");
+            }
 
             System.out.println("Enter price per night: ");
-            Double price = input.nextDouble();
+            Double price = 0.0;
+
+            try{
+                price = Double.parseDouble(input.nextLine().trim());
+                if (price <= 0) {
+                    System.out.println("Price is incorect please try again");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input please enter valid price");
+                continue;
+            }
 
             while (roomType == null) {
                 System.out.println("Enter room type: 1 - Single bed, 2 - Double bed");
