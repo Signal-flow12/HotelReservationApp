@@ -54,6 +54,6 @@ public class Customer {
             return "Invalid email address format";
         }
 
-        return null; // Email is valid
+        return null;
     }
 }
