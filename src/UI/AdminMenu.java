@@ -85,20 +85,27 @@ public class AdminMenu {
 
             if (roomNumber.isEmpty()) {
                 System.out.println("Room number cannot be empty");
+                continue;
+            }
+
+            // Check if the room number already exists
+            if (adminResource.roomNumberExists(roomNumber)) {
+                System.out.println("Room with the same number already exists. Please enter a different room number.");
+                continue;
             }
 
             System.out.println("Enter price per night: ");
             Double price = 0.0;
 
-            try{
+            try {
                 price = Double.parseDouble(input.nextLine().trim());
                 if (price <= 0) {
-                    System.out.println("Price is incorect please try again");
-                    continue;
+                    System.out.println("Price is incorrect, please try again");
+                    continue;  // Add continue to go to the next iteration of the loop
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input please enter valid price");
-                continue;
+                System.out.println("Invalid input, please enter a valid price");
+                continue;  // Add continue to go to the next iteration of the loop
             }
 
             while (roomType == null) {
@@ -110,7 +117,7 @@ public class AdminMenu {
                 } else if (type == 2) {
                     roomType = RoomTypeEnum.DOUBLE;
                 } else {
-                    System.out.println("Invalid input try again");
+                    System.out.println("Invalid input, try again");
                 }
             }
             IRoom room = new Room(roomNumber, price, roomType);
@@ -123,5 +130,6 @@ public class AdminMenu {
             addRoom = input.nextLine().toLowerCase().trim();
         }
     }
+
 
 }

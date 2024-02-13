@@ -43,4 +43,14 @@ public class AdminResource {
     public void displayAllReservations() {
         reservationService.printAllReservations();
     }
+
+    public boolean roomNumberExists(String roomNumber) {
+        for (IRoom existingRoom : getAllRooms()) {
+            if (existingRoom.getRoomNumber().equals(roomNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
