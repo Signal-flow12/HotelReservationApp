@@ -15,7 +15,6 @@ public class Room implements IRoom {
     public String getRoomNumber() {
         return roomNumber;
     }
-
     @Override
     public Double getRoomPrice() {
         return price;

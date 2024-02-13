@@ -51,7 +51,7 @@ public class ReservationService {
 
             // Check if the room is booked in the specified time frame
             for (Reservation reservation : reservations) {
-                if (room.getRoomNumber().equals(reservation.getRoom().getRoomNumber())) {
+                if (room.getRoomNumber() == reservation.getRoom().getRoomNumber())  {
                     if (!(checkOutDate.before(reservation.getCheckInDate()) || checkInDate.after(reservation.getCheckOutDate()))) {
                         // Room is already booked for the specified time frame
                         isRoomAvailable = false;

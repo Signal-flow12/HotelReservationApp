@@ -81,16 +81,24 @@ public class AdminMenu {
             RoomTypeEnum roomType = null;
 
             System.out.println("Enter room number: ");
-            String roomNumber = input.nextLine().trim();
 
-            if (roomNumber.isEmpty()) {
-                System.out.println("Room number cannot be empty");
-                continue;
-            }
+            String roomNumber = input.nextLine().trim();  // Change the type to String
+            try {
+                int roomNumberInt = Integer.parseInt(roomNumber);
 
-            // Check if the room number already exists
-            if (adminResource.roomNumberExists(roomNumber)) {
-                System.out.println("Room with the same number already exists. Please enter a different room number.");
+                // Additional validation if needed
+                if (roomNumberInt <= 0) {
+                    System.out.println("Room number must be a positive integer. Please try again.");
+                    continue;
+                }
+
+                if (adminResource.roomNumberExists(roomNumber)) {
+                    System.out.println("Room with the same number already exists. Please enter a different room number.");
+                    continue;
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid integer for the room number.");
                 continue;
             }
 
